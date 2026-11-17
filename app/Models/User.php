@@ -5,6 +5,7 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -22,11 +23,16 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        // TODO 1: Tambahkan kolom 'role' pada properti $fillable
+        'role',
     ];
 
-    // TODO 1: Tambahkan method relasi peminjaman() (One-to-Many ke model Peminjaman)
-
+    /**
+     * Relasi One-to-Many: satu user memiliki banyak peminjaman.
+     */
+    public function peminjaman(): HasMany
+    {
+        return $this->hasMany(Peminjaman::class);
+    }
 
     /**
      * The attributes that should be hidden for serialization.
